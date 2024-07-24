@@ -1,0 +1,55 @@
+<div class="h-100 d-flex flex-column justify-content-between">
+  <table [dataSource]="dataSource" mat-table>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell> Name</th>
+      <td *matCellDef="let element" mat-cell> {{ element.name }}</td>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <th *matHeaderCellDef mat-header-cell> Type</th>
+      <td *matCellDef="let element" mat-cell> {{ element.type }}</td>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="color">
+      <th *matHeaderCellDef mat-header-cell> Color</th>
+      <td *matCellDef="let element" mat-cell><span [ngStyle]="{backgroundColor: element.color}"
+                                                   class="color-palette"></span></td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>Actions</div>
+          <button (click)="add()" color="primary" mat-flat-button>
+            <mat-icon>add</mat-icon>
+            Add
+          </button>
+        </div>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        @if (element?.id) {
+          <div class="d-flex" [style.gap]="'10px'">
+            <button mat-icon-button color="primary" (click)="edit(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="remove(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        }
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]"
+                 aria-label="Select page of periodic elements"
+                 showFirstLastButtons>
+  </mat-paginator>
+</div>

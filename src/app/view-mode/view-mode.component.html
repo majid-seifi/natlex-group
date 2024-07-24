@@ -1,0 +1,33 @@
+@if (charts?.length) {
+  <div class="d-flex justify-content-center py-2" [style.gap]="'10px'">
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startPicker" [formControl]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="endPicker" [formControl]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    @for (chart of charts; track chart) {
+      <div [ngClass]="{'col-md-6': charts.length >= 2, 'col-lg-4':  charts.length >= 3, 'col': charts.length === 1}">
+        <div class="high-chart-container">
+          <highcharts-chart
+            class="high-chart"
+            [Highcharts]="Highcharts"
+            [options]="chart">
+          </highcharts-chart>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="h-100 text-center align-content-center">
+    No Data Available
+  </div>
+}
